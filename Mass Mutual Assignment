@@ -1,0 +1,111 @@
+1)Feature file:
+###########
+
+
+Feature:Verifying the value labels & values in a page
+
+Scenario: Verify the correct count of values in a page
+Given navigating to given URL
+Then count the number of value labels in a page
+
+Scenario: Verify the values on the screen are greater than 0
+Given navigating to given URL
+When values appear on the screen
+Then verify each value is greater than zero or not
+
+Scenario: Verify total balance is correct or not based on the values listed on the screen
+Given navigating to given URL And sum of the value labels
+When  value labels is on page
+And Count the Total balance
+Then Verify Total balance is correct based on the values listed on the screen
+
+Scenario: Verify the values formatted as currencies 
+Given value labels is on page
+When navigating to given URL
+Then Verify values formatted as currencies 
+
+Scenario: Verify the total balance matches the sum of the values
+Given navigating to given URL  
+When value labels is on page
+Then Verify Total balance matches sum of the values
+
+
+2)Step Definition file:
+#################
+
+package stepDefinition;
+
+import java.util.concurrent.TimeUnit;
+
+import org.openqa.selenium.By;
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.firefox.ChromeDriver;
+
+import cucumber.api.java.en.Given;
+import cucumber.api.java.en.Then;
+import cucumber.api.java.en.When;
+
+public class AssertionOfValues {
+	public static WebDriver driver;
+
+// Scenario 1: Verifying the number of values in a screen
+
+	@Given("^User navigating to the given URL$")
+	public void navigateToUrl {
+        driver = new ChromeDriver();
+        driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
+        driver.navigate().To("https://www.exercise1.com/values");
+		}
+	@Then(^Count the number of Value labels on Home Page$”)
+Public void numberOfValueLabels{
+int count=driver.findElement(By.xpath(“.//*[@id*=lbl_val_*)).length;
+Public void result_should_be(int count){
+assertEquals(5,count);
+}
+
+// Scenario 2: Verifying the values are greater than zero or not in a screen
+
+@When("^User navigating to the given URL$")
+Public void valueGreaterThanZero{
+int count=driver.findElement(By.xpath(“.//*[@id*=lbl_val_*)).length;
+for(int i=o;i<count;i++){
+Int value=driver.findElement(By.Id(txt_val_${i}).getText();
+
+if(value>0){
+System.out.println(Value is greater than zero”);
+}
+}
+
+// Scenario 3: Verifying the values are greater than zero or not in a screen
+
+@When("^User navigating to the given URL$")
+Public void verifyingTotalBalance{
+int totalBalance=driver.findElement(By.xpath(“.//*[@id*=txt_ttl_val)).getText();
+System.out.println(“Total Balance displayed on the screen is correct”);
+
+// Scenario 4: Verifying the values formatted as currencies
+
+@When("^User navigating to the given URL$")
+Public void valuesFormattedAsCurrencies{
+int count=driver.findElement(By.xpath(“.//*[@id*=lbl_val_*)).length;
+for(int i=o;i<count;i++){
+Int value=driver.findElement(By.Id(txt_val_${i}).getText();
+if(value.toContain($){
+System.out.println(“Value are containing the currency symbol”);
+}
+}
+
+// Scenario 5: Verifying the total balance matches sum of the values
+
+@When("^User navigating to the given URL$")
+Public void valuesFormattedAsCurrencies{
+int count=driver.findElement(By.xpath(“.//*[@id*=lbl_val_*)).length;
+for(int i=o;i<count;i++){
+Int sum=0;
+Int value=sum + driver.findElement(By.Id(txt_val_${i}).getText();
+}
+Public void totalSumVerification(int count){
+assertEquals(1,000,000.00,value);
+}
+}
+
